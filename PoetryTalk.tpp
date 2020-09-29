@@ -367,3 +367,10 @@ So much to do!
 * More writing
 * A better UI for people who aren't me
 * Generation of LaTeX templates
+
+--newpage
+--heading Me & my code
+
+* on twitter as @ClarissaAdjoint
+* and elsewhere on the small internet as left_adjoint
+* github repo: https://github.com/clarissalittler/PoetryForms
