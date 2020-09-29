@@ -1,7 +1,6 @@
-;; generating match constraints
-;; there are line matching constraints, where the lines need to be the same length and
-;; ending matching constraints
-;; there's also the possibility of generating lines lengths according to a function
+;; let's consider the possibility of interesting indentation as a part of the form
+;; each line will be represented by a data structure, at first just a pair
+;; of (spaces . syllables)
 
 (defvar *poem-line* 0)
 (defvar *poem-stanza* 0)
@@ -17,11 +16,16 @@
  (funcall f *poem-line*))
 
 (defun gen-line-rand (i)
-  (funcall (up-down (floor (/ *avg-line* 2))) *avg-line*))
-
+  (cons (random 5)
+	(funcall (up-down (floor (/ *avg-line* 2))) *avg-line*)))
 
 (defun gen-line-sine (i)
-  (max (floor (+ *avg-line* (funcall (sines 3 -3 1 2) i))) 2))
+  (let ((n (max (floor (+ *avg-line* (funcall (sines 3 -3 1 2) i))) 2)))
+    (cons (floor (/ n 2)) n)))
+
+(defun gen-line-rand-linspace (i)
+  (cons (floor (/ i 2))
+	(funcall (up-down (floor (/ *avg-line* 2))) *avg-line*)))
 
 (defun sines (&rest args)
   #'(lambda (time)
@@ -41,10 +45,14 @@
 	collect (gen-stanza avg-stanza line-fun)))
 
 (defun print-line (l)
-  (let ((s ""))
-    (dotimes (i l)
-      (setf s (concatenate 'string "-" s)))
-    (format t "~a: ~a~%" l s)))
+  (let ((s "")
+	(llen (cdr l))
+	(slen (car l)))
+    (dotimes (i slen)
+      (setf s (concatenate 'string " " s)))
+    (dotimes (i llen)
+      (setf s (concatenate 'string s "-")))
+    (format t "(~a,~a): ~a~%" slen llen s)))
 
 ;; takes a list of stanzas and prints it
 (defun print-poem (poem)
@@ -60,7 +68,8 @@
 	 (*avg-line* (parse-integer (nth 4 argv)))
 	 (line-fun
 	  (cond ((= fun-choice 0) #'gen-line-rand)
-		((= fun-choice 1) #'gen-line-sine))))
+		((= fun-choice 1) #'gen-line-sine)
+	        ((= fun-choice 2) #'gen-line-rand-linspace))))
     (setf *random-state* (make-random-state t))
     (print-poem (gen-poem num-stanza avg-stanza line-fun))))
   
