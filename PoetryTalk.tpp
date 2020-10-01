@@ -149,6 +149,8 @@ Superposition of sine waves, randomly generated
 5: -----
 3: ---
 --newpage
+--heading Example: cont.
+
 2: --
 2: --
 2: --
@@ -166,6 +168,7 @@ Superposition of sine waves, randomly generated
 
 --newpage
 --heading Example
+
 I worship the moon and the stars,
 I lose myself in the sacred void
 that swims with endless energy
@@ -182,6 +185,8 @@ I was trapped and alone
 I was emptied out
 a vessel
 --newpage
+--heading Example: cont.
+
 Nothing
 Can grow
 Nothing
