@@ -148,7 +148,7 @@ Superposition of sine waves, randomly generated
 6: ------
 5: -----
 3: ---
-
+--newpage
 2: --
 2: --
 2: --
@@ -181,7 +181,7 @@ every thought captive
 I was trapped and alone
 I was emptied out
 a vessel
-
+--newpage
 Nothing
 Can grow
 Nothing
@@ -232,22 +232,6 @@ Forms get more interesting, representation gets harder
 | | | |-| | | | | |-|-|-| | | |-|-|-
 |-|-|-|-| |-|-|-|-| | | | | |-|-| | |-|-
 |-| | |-|-|-|-|-| | | |-| | | 
-
-| | |-|-|-| | |-|-|-|-
-|-| | | | | | |-
-| | | | |-| | | | |-|-|-| | | 
-|-|-|-|-|-| |-|-|-| | 
-
-|-| | |-|-|-|-|-| | | |-
-| | |-|-|-| | | |-|-|-|-| | |-|-|-| | 
-
-|-|-| | | | | |-|-| | |-|-|-|-
-|-| | | |-| | | | | |-|-|-| | |-|-|-|-|-| 
-|-|-|-|-|-| |-|-|-|-
-|-| | |-|-|-|-|-| | | | |-| | 
-| | | |-|-| | | 
-|-|-| | | | | |-|-
-
 --newpage
 --heading Version 5: Metre
 Everything we've considered is free verse
