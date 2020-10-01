@@ -34,17 +34,11 @@ Why not work on a procgen project to help me
 The goal isn't to generate poetry per-se but rather to generate the shapes of poetry that the authors writes themselves
 
 --newpage
---heading Scope
-
-This talk is entirely about what I know, which is anglophonic poetry.
-This is a limitation of experience not interest!
-
---newpage
 --heading Version 1
 
 Observations:
+* Limited scope: Only talking about poetry in english
 * The base unit of (english) poetry structure is the syllable
-* Syllables in English are weird and irregular (e.g. haiku is w e i r d in English)
 * Poetry comes in a terrifying array of forms, anti-forms, styles, and philosophies
 * Need not just one generator but a family of them
 --newpage
@@ -132,6 +126,7 @@ Observations:
 
 What to change:
 * Arbitrary functions of line and stanza number
+* Generate random functions from pieces
 * Can create waves, shapes, pictures
 
 --newpage
@@ -220,26 +215,38 @@ Signals to generate space: >= 0 text, <0 space
 --heading Example
 Forms get more interesting, representation gets harder
 
-| |-|-|-|-|-| |-|-|-| | | | | |-|-| | |-|-|-
-|-|-|-|-| | | |-|-| | | | |-|-|-| | | |-|-|-|-| | |-|-
-|-|-|-| | |-|-|-| | | | | |-|-| | |-|-
-|-|-| | | |-| | | | | |-|-|-
-|-| |-|-|-|-| | | | | |-
-| | | |-| | | | | |-|-| | | |-|-|-|-|-| |-|-|-| 
-|-|-|-| | | | | |-|-| | |-|-|-
-| |-| | | | |-|-|-| | 
-|-| | | | | |-|-| | |-|-|-|-|-| | | |-| | | | 
-| | | | |-|-|-| | | |-|-
-| | | | |-|-| | |-|-|-|-|-| | | |-| | 
-| | |-|-|-| | |-|-|-|-|-| |-
+| |-|-| | | |-|-|-|-|-| |-|-|-| | | | 
+| | | | | |-|-| | |-|-|-|-|-
+| | |-|-| | | | |-|-|-| | | |-|-
+|-|-|-| | |-|-|-| | | | | |-
+| | |-|-|-|-|-| | | |-| | | | | |-
 
-| | |-| | |-|-|-|-|-| | 
-|-|-| | | |-|-|-|-|-| |-|-|-| | 
-|-| | |-|-|-|-|-| | | |-|-| | | | |-|-|-| | | |-|-
-| | | |-|-|-|-| | |-|-|-| | | | 
-| |-|-|-|-|-| | | |-| | | | | |-|-|-| | |-|-|-|-
-|-|-|-|-|-| |-|-|-|-| 
-|-|-|-| | | | |-| | | | | |-|-| | | |-|-|-|-|-| |-|-
+| |-|-|-| | | |-|-|-|-| |-|-|-|-| | | | 
+|-| | | | | |-|-| |-|-|-|-|-|-| | | |-
+| | | |-| | | | 
+|-|-|-|-| |-|-|-| | | | 
+| | |-|-|-|-|-| | | | |-| | | | |-|-|-| | 
+| |-|-|-| | | |-|-|-|-|-| |-|-|-| | | | | 
+|-| | | | | |-|-| | |-
+
+| | | |-| | | | | |-|-|-| | | |-|-|-
+|-|-|-|-| |-|-|-|-| | | | | |-|-| | |-|-
+|-| | |-|-|-|-|-| | | |-| | | 
+
+| | |-|-|-| | |-|-|-|-
+|-| | | | | | |-
+| | | | |-| | | | |-|-|-| | | 
+|-|-|-|-|-| |-|-|-| | 
+
+|-| | |-|-|-|-|-| | | |-
+| | |-|-|-| | | |-|-|-|-| | |-|-|-| | 
+
+|-|-| | | | | |-|-| | |-|-|-|-
+|-| | | |-| | | | | |-|-|-| | |-|-|-|-|-| 
+|-|-|-|-|-| |-|-|-|-
+|-| | |-|-|-|-|-| | | | |-| | 
+| | | |-|-| | | 
+|-|-| | | | | |-|-
 
 --newpage
 --heading Version 5: Metre
@@ -250,7 +257,7 @@ just not prescribed metre
 Most classical anglophonic forms are described in two-syllable feet:
 
 spondee: strong-strong
-pyrric: weak-weak
+pyrrhic: weak-weak
 iamb: weak-strong
 trochee: strong-weak
 
@@ -268,7 +275,7 @@ iambic pentameter: five iambs per line
 --newpage
 --heading Example: Poem
 The fall          of man.   this the      love/fear, our motiva-
-  tion. I've been a woman---always? perhaps   but I haven't even
+  tion. I've been a woman---always? perhaps   but I haven't ever
 ____________
 
 do you know who you are? will you      be assured when          they ask
