@@ -112,3 +112,5 @@
 		((= fun-choice 3) (gen-line-horiz-sines-sym)))))
     (setf *random-state* (make-random-state t))
     (print-poem (gen-poem num-stanza avg-stanza line-fun))))
+
+(main *posix-argv*)
