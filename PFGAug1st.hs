@@ -36,13 +36,15 @@ genStanzaNoCons :: Rand StdGen ([Int], [IntraStanza])
 genStanzaNoCons = do
   linesNum <- getRandomR (2 :: Int,10)
   medianLine <- getRandomR (3 :: Int,20)
-  ls <- mapM (\x -> makeLine medianLine) [0..linesNum]
+  -- generate exactly linesNum lines
+  ls <- mapM (\_ -> makeLine medianLine) [1..linesNum]
   return $ (ls,[])
 
 genPoem :: Int -> Rand StdGen Poem
 genPoem stanzaNum = do
   -- stanzaNum <- getRandomR (1 :: Int,5)
-  stanzas <- mapM (\x -> genStanzaNoCons) [0..stanzaNum]
+  -- generate exactly stanzaNum stanzas
+  stanzas <- mapM (\_ -> genStanzaNoCons) [1..stanzaNum]
   return $ PS stanzas []
 
 gen n = do
