@@ -193,7 +193,7 @@ Nothing
 Can build itself
 back up because nothing is
 really ever just nothing and
-the vaccuum pulses with life
+the vacuum pulses with life
 and the universe is
 never empty but is
 full of creation, breathing
