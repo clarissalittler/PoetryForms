@@ -1,7 +1,7 @@
 ;; generating match constraints
 ;; there are line matching constraints, where the lines need to be the same length and
 ;; ending matching constraints
-;; there's also the possibility of generating lines lengths according to a function
+;; there's also the possibility of generating line lengths according to a function
 
 (defvar *poem-line* 0)
 (defvar *poem-stanza* 0)
