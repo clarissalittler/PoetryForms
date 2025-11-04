@@ -3,26 +3,14 @@
 ;;so a line will now be a list like
 ;; (#\SPACE #\- #\* #- #\SPACE #\SPACE)
 
+;; Load common utilities
+(load (merge-pathnames "poetry-utils.lisp" *load-truename*))
+
 (defvar *poem-line* 0)
 (defvar *poem-stanza* 0)
 (defvar *avg-line* 0)
 
-(defun up-down (r)
-  #'(lambda (x) (+ x (- (random (* 2 r)) r ))))
-
-(defun up-down-half (r)
-  (funcall (up-down (floor (/ r 2))) r))
-
-(defun sines (&rest args)
-  #'(lambda (time)
-      (let ((res 0))
-	(dotimes (i (length args))
-	  (setf res (+ res (* (nth i args) (sin (/ time (+ 1 i)))))))
-	res)))
-
-;; this is really a stub for what will probably get more complicated
-(defun gen-line-f (f)
- (funcall f *poem-line*))
+;; Line generation functions
 
 (defun gen-line-rand (i)
   (declare (ignore i))
@@ -30,11 +18,6 @@
 	collecting (let ((r (random 10)))
 		     (cond ((< r 3) 'b)
 			   (t '-)))))
-
-(defun rand-list (avg-size low-bound up-bound)
-  (let ((l (up-down-half avg-size)))
-    (loop for x from 1 to l
-	  collecting (+ low-bound (random (- up-bound low-bound))))))
 
 (defun gen-line-half-space (f)
   #'(lambda (i)
@@ -54,9 +37,6 @@
 	      collecting (if (> (funcall f (+ (* i *avg-line*) x)) 0)
 			     '-
 			     'b)))))
-
-(defun palindrome (l)
-  (append l (reverse l)))
 
 (defun gen-line-signal-sym (f)
   #'(lambda (i)
