@@ -13,6 +13,10 @@
 
 ;; Line generation functions
 
+(defun gen-line-f (f)
+  "Helper to apply line generation function with current *poem-line*"
+  (funcall f *poem-line*))
+
 (defun gen-line-rand (i)
   (funcall (up-down (floor (/ *avg-line* 2))) *avg-line*))
 
@@ -52,4 +56,5 @@
 		((= fun-choice 1) #'gen-line-sine))))
     (setf *random-state* (make-random-state t))
     (print-poem (gen-poem num-stanza avg-stanza line-fun))))
-  
+
+(main *posix-argv*)

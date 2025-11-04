@@ -12,6 +12,10 @@
 
 ;; Line generation functions
 
+(defun gen-line-f (f)
+  "Helper to apply line generation function with current *poem-line*"
+  (funcall f *poem-line*))
+
 (defun gen-line-rand (i)
   (declare (ignore i))
   (loop for x from 1 to (funcall (up-down (floor (/ *avg-line* 2))) *avg-line*)

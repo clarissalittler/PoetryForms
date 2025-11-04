@@ -76,15 +76,6 @@
   (loop for x from 1 to n collecting (funcall f)))
 
 ;;; =============================================================================
-;;; Line Generation Helper
-;;; =============================================================================
-
-(defun gen-line-f (f)
-  "Helper function to apply a line generation function.
-   Calls f with the current *poem-line* special variable."
-  (funcall f *poem-line*))
-
-;;; =============================================================================
 ;;; Aggregate Functions
 ;;; =============================================================================
 
