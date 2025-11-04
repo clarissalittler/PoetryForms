@@ -26,6 +26,9 @@
 ;;;   sub-step: propagate constraints based on stanzas
 ;;; PRINT
 
+;; Load common utilities
+(load (merge-pathnames "poetry-utils.lisp" *load-truename*))
+
 (defvar *poem-line* 0)
 (defvar *poem-stanza* 0)
 (defvar *stanza-constraints* nil)
@@ -36,20 +39,13 @@
 (defvar *next-rhyme-name* 96) ;; we start with #\a by adding one
 (defvar *stanza-array* nil)
 
+;; Rhyme name generation
 
 (defun get-name ()
   (incf *next-rhyme-name*)
   (code-char *next-rhyme-name*))
 
-(defun up-down (r)
-  #'(lambda (x) (+ x (- (random (* 2 r)) r ))))
-
-(defun up-down-half (r)
-  (funcall (up-down (floor (/ r 2))) r))
-
-;; this is really a stub for what will probably get more complicated
-(defun gen-line-f (f)
- (funcall f *poem-line*))
+;; Line generation functions
 
 (defun gen-line-rand (i)
   (cons (random 5)
@@ -63,25 +59,10 @@
   (cons (floor (/ i 2))
 	(funcall (up-down (floor (/ *avg-line* 2))) *avg-line*)))
 
-(defun sines (&rest args)
-  #'(lambda (time)
-      (let ((res 0))
-	(dotimes (i (length args))
-	  (setf res (+ res (* (nth i args) (sin (/ time (+ 1 i)))))))
-	res)))
-
 ;; format for stanzas are (constraint . line-list)
 ;; stanza constraints are either (=line s1 s2)  or (rotate s1 s2 n)
 ;; we're hardcoding probabilities to start
 ;; write rand-cond macro later, it'll be useful
-
-(defun random-from (i r)
-  (+ i (random (- r i))))
-
-(defun rotate-list (l n)
-  (if (= n 0)
-      l
-      (rotate-list (append (cdr l) (cons (car l) nil)) (- n 1))))
 
 (defun choose-stanza-constraint (s total-stanzas)
   (let ((rando (random 10)))

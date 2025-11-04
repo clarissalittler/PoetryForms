@@ -3,32 +3,25 @@
 ;; ending matching constraints
 ;; there's also the possibility of generating line lengths according to a function
 
+;; Load common utilities
+(load (merge-pathnames "poetry-utils.lisp" *load-truename*))
+
 (defvar *poem-line* 0)
 (defvar *poem-stanza* 0)
 (defvar *constraints* nil)
 (defvar *avg-line* 0)
 
+;; Line generation functions
 
-(defun up-down (r)
-  #'(lambda (x) (+ x (- (random (* 2 r)) r ))))
-
-;; this is really a stub for what will probably get more complicated
 (defun gen-line-f (f)
- (funcall f *poem-line*))
+  "Helper to apply line generation function with current *poem-line*"
+  (funcall f *poem-line*))
 
 (defun gen-line-rand (i)
   (funcall (up-down (floor (/ *avg-line* 2))) *avg-line*))
 
-
 (defun gen-line-sine (i)
   (max (floor (+ *avg-line* (funcall (sines 3 -3 1 2) i))) 2))
-
-(defun sines (&rest args)
-  #'(lambda (time)
-      (let ((res 0))
-	(dotimes (i (length args))
-	  (setf res (+ res (* (nth i args) (sin (/ time (+ 1 i)))))))
-	res)))
 
 (defun gen-stanza (avg-stanza line-fun)
   (loop for x from 1 to (funcall (up-down 3) avg-stanza)
@@ -63,4 +56,5 @@
 		((= fun-choice 1) #'gen-line-sine))))
     (setf *random-state* (make-random-state t))
     (print-poem (gen-poem num-stanza avg-stanza line-fun))))
-  
+
+(main *posix-argv*)

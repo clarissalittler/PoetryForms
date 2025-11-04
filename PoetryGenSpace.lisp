@@ -2,18 +2,19 @@
 ;; each line will be represented by a data structure, at first just a pair
 ;; of (spaces . syllables)
 
+;; Load common utilities
+(load (merge-pathnames "poetry-utils.lisp" *load-truename*))
+
 (defvar *poem-line* 0)
 (defvar *poem-stanza* 0)
 (defvar *constraints* nil)
 (defvar *avg-line* 0)
 
+;; Line generation functions
 
-(defun up-down (r)
-  #'(lambda (x) (+ x (- (random (* 2 r)) r ))))
-
-;; this is really a stub for what will probably get more complicated
 (defun gen-line-f (f)
- (funcall f *poem-line*))
+  "Helper to apply line generation function with current *poem-line*"
+  (funcall f *poem-line*))
 
 (defun gen-line-rand (i)
   (cons (random 5)
@@ -26,13 +27,6 @@
 (defun gen-line-rand-linspace (i)
   (cons (floor (/ i 2))
 	(funcall (up-down (floor (/ *avg-line* 2))) *avg-line*)))
-
-(defun sines (&rest args)
-  #'(lambda (time)
-      (let ((res 0))
-	(dotimes (i (length args))
-	  (setf res (+ res (* (nth i args) (sin (/ time (+ 1 i)))))))
-	res)))
 
 (defun gen-stanza (avg-stanza line-fun)
   (loop for x from 1 to (funcall (up-down 3) avg-stanza)

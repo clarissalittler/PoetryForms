@@ -8,27 +8,14 @@
 ;; 'tr is trochee
 ;; 'sp is spondee
 
+;; Load common utilities
+(load (merge-pathnames "poetry-utils.lisp" *load-truename*))
 
 (defvar *poem-line* 0)
 (defvar *poem-stanza* 0)
 (defvar *avg-line* 0)
 
-(defun up-down (r)
-  #'(lambda (x) (+ x (- (random (* 2 r)) r ))))
-
-(defun up-down-half (r)
-  (funcall (up-down (floor (/ r 2))) r))
-
-(defun sines (&rest args)
-  #'(lambda (time)
-      (let ((res 0))
-	(dotimes (i (length args))
-	  (setf res (+ res (* (nth i args) (sin (/ time (+ 1 i)))))))
-	res)))
-
-;; this is really a stub for what will probably get more complicated
-(defun gen-line-f (f)
- (funcall f *poem-line*))
+;; Metrical feet generation
 
 (defun rand-foot ()
   (let ((rando (random 10)))
@@ -37,20 +24,18 @@
 	  ((< rando 10) 'py)
 	  (t 'sp))))
 
+;; Line generation functions
+
+(defun gen-line-f (f)
+  "Helper to apply line generation function with current *poem-line*"
+  (funcall f *poem-line*))
+
 (defun gen-line-rand (i)
   (declare (ignore i))
   (loop for x from 1 to (funcall (up-down (floor (/ *avg-line* 2))) *avg-line*)
 	collecting (let ((r (random 10)))
 		     (cond ((< r 3) 'b)
 			   (t (rand-foot))))))
-
-(defun rand-list (avg-size low-bound up-bound)
-  (let ((l (up-down-half avg-size)))
-    (loop for x from 1 to l
-	  collecting (+ low-bound (random (- up-bound low-bound))))))
-
-(defun make-list-f (n f)
-  (loop for x from 1 to n collecting (funcall f)))
 
 (defun gen-line-half-space (f)
   #'(lambda (i)
@@ -70,9 +55,6 @@
 	      collecting (if (> (funcall f (+ (* i *avg-line*) x)) 0)
 			     (rand-foot)
 			     'b)))))
-
-(defun palindrome (l)
-  (append l (reverse l)))
 
 (defun gen-line-signal-sym (f)
   #'(lambda (i)
@@ -132,3 +114,5 @@
 		((= fun-choice 3) (gen-line-horiz-sines-sym)))))
     (setf *random-state* (make-random-state t))
     (print-poem (gen-poem num-stanza avg-stanza line-fun))))
+
+(main *posix-argv*)
