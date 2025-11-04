@@ -1,3 +1,32 @@
+;; ============================================================================
+;; PoetryGenRhymes.lisp - INCOMPLETE EXPERIMENTAL VERSION
+;; ============================================================================
+;; WARNING: This file represents an incomplete experimental implementation.
+;; It explores a more sophisticated constraint system but was never finished.
+;;
+;; DESIGN INTENT (from comments): Multi-phase constraint-based generation
+;; The planned architecture was:
+;; 1. Generate number of stanzas
+;; 2. Generate stanza-level constraints (rotate, eq-stanza)
+;; 3. Generate line counts per stanza (respecting constraints)
+;; 4. Generate rhyme schema based on total unique line-endings
+;; 5. Generate lines with constraints
+;; 6. Propagate constraints between stanzas
+;; 7. Print output
+;;
+;; DESIGN EVOLUTION: This represents thinking toward PoetryRhyme2.lisp
+;; Many of these ideas were successfully implemented in PoetryRhyme2.lisp
+;; with refinements:
+;; - Rotate constraint: implemented in PoetryRhyme2.lisp
+;; - =line constraint: replaces the eq-stanza concept
+;; - Rhyme schema generation: simplified in PoetryRhyme2.lisp
+;; - Two-phase approach: successfully implemented in PoetryRhyme2.lisp
+;;
+;; KEY INSIGHT (from comments): "Caution: doing this would weight lines
+;; improperly..." - Recognition that constraint generation order matters.
+;; This insight led to the two-phase architecture in PoetryRhyme2.lisp.
+;; ============================================================================
+
 ;; let's consider the possibility of interesting indentation as a part of the form
 ;; each line will be represented by a data structure, at first just a pair
 ;; of (spaces . syllables)
@@ -84,9 +113,13 @@
       (rotate-list (append (cdr l) (cons (car l) nil)) (- n 1))))
 
 (defun choose-stanza-constraint (s total-stanzas)
+  "INCOMPLETE: Intended to choose stanza constraints.
+   DESIGN NOTE: The rotate constraint has incomplete parameters - the (+ 1 (length...
+   expression is unfinished. This suggests the author was working on calculating
+   rotation amount but didn't complete the implementation."
   (let ((rando (random 10)))
     (cond ((< rando 2) (list '=line (random-from 0 s)))
-	  ((< rando 4) (list 'rotate (random-from 0 s) (+ 1 (length 
+	  ((< rando 4) (list 'rotate (random-from 0 s) (+ 1 (length
 	  (t nil))))
 
 ;; ;; we'll see if it makes more sense to thread the data or have a global
@@ -103,22 +136,35 @@
 ;;;        if not then
 
 (defun gen-stanza (s avg-sl total-stanzas)
+  "INCOMPLETE: Stanza structure generation.
+   DESIGN NOTE: The constrained case (after the 'else') is completely unimplemented.
+   This function was meant to either create a free stanza or handle constraints,
+   but only the free case was completed. Compare to PoetryRhyme2.lisp's gen-stanza
+   which fully implements both cases."
   (let ((const (choose-stanza-constraint s total-stanzas)))
     (if (not const)
 	(let ((ls (up-down-half avg-sl)))
 	  (setf (aref *stanza-array* s)
 		(make-array ls :initial-element nil))
 	  (incf *total-lines* ls))
+	;; INCOMPLETE: Missing implementation for constrained stanzas
 	(
 
 
 (defun gen-poem (avg-stanzas stanza-length)
+  "INCOMPLETE: Two-phase poem generation (partial implementation).
+   DESIGN NOTE: This shows the intended two-phase approach that was successfully
+   implemented in PoetryRhyme2.lisp:
+   - Phase 1: Generate all stanza structures
+   - Phase 2: Generate line content (gen-lines - but this function is undefined)
+
+   However, gen-lines is never defined in this file, making this non-functional."
   (let* ((total-stanzas (funcall (up-down 2) avg-stanzas))
 	 (*stanza-array* (make-array total-stanzas :initial-element nil)))
     (dotimes (i total-stanzas)
       (gen-stanza i stanza-length))
     (dotimes (i total-stanzas)
-      (gen-lines i))))
+      (gen-lines i))))  ; gen-lines is never defined
       
 
 ;; (defun gen-stanza (avg-stanza line-fun)
